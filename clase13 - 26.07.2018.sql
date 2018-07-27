@@ -29,11 +29,7 @@ SET release_year = CASE
 	WHEN rating = 'R' THEN 2999
 	END;
 
-# 4) Return a film
-
-Write the necessary statements and queries for the following steps.
-Find a film that was not yet returned. And use that rental id. Pick the latest that was rented for example.
-Use the id to return the film.
+# 4) 
 
 SELECT f.title, r.rental_id FROM film f
 INNER JOIN inventory i USING (film_id)
@@ -47,4 +43,30 @@ WHERE rental.rental_id = 16050;
 UPDATE payment
 SET amount = amount + 20
 WHERE payment.rental_id = 16050;
+
+# 5) Delete a film
+
+#This is not working for the Constraints
+
+DELETE film FROM film
+WHERE film.filmWH_id = 1;
+
+#This works
+
+DELETE payment 
+FROM rental 
+	INNER JOIN payment USING (rental_id)
+	INNER JOIN inventory USING (inventory_id)
+	WHERE film_id = 1;
+
+DELETE rental
+FROM inventory
+	INNER JOIN rental USING (inventory_id)
+	WHERE film_id = 1;
+
+DELETE film_actor FROM film_actor WHERE film_id = 1;
+
+DELETE film_category FROM film_category WHERE film_id = 1;
+
+DELETE film FROM film WHERE film_id = 1;
 
