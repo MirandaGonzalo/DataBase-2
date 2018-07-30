@@ -49,7 +49,7 @@ WHERE payment.rental_id = 16050;
 #This is not working for the Constraints
 
 DELETE film FROM film
-WHERE film.filmWH_id = 1;
+WHERE film.film_id = 1;
 
 #This works
 
