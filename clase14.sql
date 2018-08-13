@@ -31,6 +31,13 @@ WHERE TRIM(LOWER(CONCAT(a.first_name))) LIKE TRIM(LOWER(' Zero '));
 # 4) - Find all the rentals done in the months of May and June. Show the film title, customer name and if it was returned or not. There
 # should be returned column with two possible values 'Yes' and 'No'.
 
+SELECT f.title as 'Titulo', customer.first_name as 'Cliente',
+IF (return_date IS NULL, 'No', 'Yes') AS 'Devuelto'
+FROM film f
+INNER JOIN inventory USING (film_id)
+INNER JOIN rental USING (inventory_id)
+INNER JOIN customer USING (customer_id)
+WHERE MONTH(rental_date) IN ('5', '6'); 
 
 # 5) - Investigate CAST and CONVERT functions. Explain the differences if any, write examples based on sakila DB.
 
