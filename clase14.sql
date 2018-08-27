@@ -39,8 +39,38 @@ INNER JOIN rental USING (inventory_id)
 INNER JOIN customer USING (customer_id)
 WHERE MONTH(rental_date) IN ('5', '6'); 
 
-# 5) - Investigate CAST and CONVERT functions. Explain the differences if any, write examples based on sakila DB.
+#5
+#The CAST() function converts a value from one datatype to another datatype:
+SELECT CAST(customer_id AS CHAR)
+FROM customer
+WHERE first_name LIKE "%a"; 
 
-# 6) - Investigate NVL, ISNULL, IFNULL, COALESCE, etc type of function. Explain what they do. Which ones are not in MySql and write usage 
-# examples.
+#The MySQL CONVERT function converts a value 
+#from one datatype to another, or one character set to another.
+SELECT CONVERT(return_date , DATE)
+FROM rental
+WHERE return_date IS NOT NULL;
+
+#6
+#The MySQL IFNULL() function lets you return an alternative value if an expression is NULL:
+SELECT IFNULL(NULL, "Es null"), return_date
+FROM rental
+WHERE return_date IS NULL
+
+#ISNULL() function is used to specify how we want to treat NULL values.
+#The NVL() and COALESCE() functions can also be used to achieve the same result.
+
+SELECT rental_date, rental_id, COALESCE(return_date, "no devuelta")
+FROM rental
+WHERE return_date IS NULL
+
+#oracle
+SELECT rental_date, rental_id, NVL(return_date, "no devuelta")
+FROM rental
+WHERE return_date IS NULL
+
+
+SELECT ISNULL(return_date)
+FROM rental
+WHERE return_date IS NULL
 
